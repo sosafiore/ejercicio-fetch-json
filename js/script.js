@@ -19,3 +19,23 @@ function showData(dataArray) {
 }
 
 // Escribe el código necesario para realizar el fetch al archivo con los datos y mostrar los estudiantes con la función showData
+
+fetch(DATA_URL)
+.then(Response => {
+  if (!Response.ok) {
+     // Verificamos si la respuesta es correcta
+    throw new error ('Error al cargar el archivo JSON');
+  }
+  return Response.json(); // Convertir la respuesta JSON
+})
+.then(data => {
+  //este 'then' se ejecuta cuando la promesa del JSON se resuelve.
+    // Extraer el array de estudiantes del JSON recibido
+  const students = data.students;
+  // Mostrar los datos en el DOM
+  showData(students);
+})
+.catch(error => {
+  // Se usa 'catch' para manejar cualquier error que ocurra durante el fetch
+  console.error('Hubo un problema con la solicitud:', error);
+})
